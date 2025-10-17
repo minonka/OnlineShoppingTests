@@ -1,0 +1,22 @@
+{
+  "validUser": {
+    "Username": "testuser",
+    "Email": "testuser12@testing.com",
+    "Password": "c8T$866%PF%`",
+    "FirstName": "John",
+    "LastName": "Smith",
+    "StreetAddress": "16 Baker Street",
+    "Country": "Canada",
+    "State": "Alberta",
+    "City": "Calgary",
+    "ZipCode": "11150",
+    "MobileNumber": "+1777666555",
+    "Payment": {
+      "CardName": "John Smith",
+      "CardNumber": "4111111111111111",
+      "Cvc": "123",
+      "ExpiryMonth": "12",
+      "ExpiryYear": "2028"
+    }
+  }
+}
