@@ -16,6 +16,9 @@ namespace OnlineShoppingTests.Utils
                 ?? throw new InvalidOperationException("Could not load users.json");
         }
 
+        /// <summary>
+        /// Get a single user by key (e.g., "admin")
+        /// </summary>
         public static User GetUser(string key)
         {
             if (!users.TryGetValue(key, out var user))
@@ -23,5 +26,10 @@ namespace OnlineShoppingTests.Utils
 
             return user;
         }
+
+        /// <summary>
+        /// Get all users as a dictionary.
+        /// </summary>
+        public static IReadOnlyDictionary<string, User> GetAllUsers() => users;
     }
 }

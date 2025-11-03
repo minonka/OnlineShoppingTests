@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang='en'>
+<head>
+    <meta charset='UTF-8'>
+    <meta name='viewport' content='width=device-width, initial-scale=1.0'>
+    <title>Test Report - BrowseAndAddItemToCart</title>
+    <style>
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background: #f5f5f5; padding: 20px; }
+        .container { max-width: 1400px; margin: 0 auto; background: white; border-radius: 8px; box-shadow: 0 2px 10px rgba(0,0,0,0.1); }
+        .header { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 30px; border-radius: 8px 8px 0 0; }
+        .header h1 { margin-bottom: 10px; font-size: 28px; }
+        .header .meta { opacity: 0.9; font-size: 14px; }
+        .summary { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 20px; padding: 30px; background: #fafafa; border-bottom: 1px solid #e0e0e0; }
+        .summary-item { text-align: center; }
+        .summary-item .label { color: #666; font-size: 12px; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 5px; }
+        .summary-item .value { font-size: 32px; font-weight: bold; }
+        .summary-item.passed .value { color: #4caf50; }
+        .summary-item.failed .value { color: #f44336; }
+        .summary-item.duration .value { color: #2196f3; font-size: 24px; }
+        .steps { padding: 30px; }
+        .step { margin-bottom: 15px; border: 1px solid #e0e0e0; border-radius: 6px; overflow: hidden; }
+        .step-header { padding: 15px 20px; cursor: pointer; display: flex; align-items: center; justify-content: space-between; transition: background 0.2s; }
+        .step-header:hover { background: #f9f9f9; }
+        .step-header.passed { background: #e8f5e9; border-left: 4px solid #4caf50; }
+        .step-header.failed { background: #ffebee; border-left: 4px solid #f44336; }
+        .step-info { flex: 1; }
+        .step-name { font-weight: 600; font-size: 16px; margin-bottom: 5px; }
+        .step-meta { color: #666; font-size: 12px; }
+        .step-status { display: flex; align-items: center; gap: 10px; }
+        .status-badge { padding: 4px 12px; border-radius: 12px; font-size: 12px; font-weight: 600; text-transform: uppercase; }
+        .status-badge.passed { background: #4caf50; color: white; }
+        .status-badge.failed { background: #f44336; color: white; }
+        .toggle-icon { transition: transform 0.3s; font-size: 20px; color: #666; }
+        .toggle-icon.expanded { transform: rotate(180deg); }
+        .step-content { max-height: 0; overflow: hidden; transition: max-height 0.3s ease; background: #fafafa; }
+        .step-content.expanded { max-height: 5000px; border-top: 1px solid #e0e0e0; }
+        .step-logs { padding: 20px; }
+        .log-entry { padding: 10px 15px; margin-bottom: 8px; background: white; border-left: 3px solid #2196f3; border-radius: 3px; font-family: 'Consolas', 'Courier New', monospace; font-size: 13px; }
+        .log-entry.error { border-left-color: #f44336; background: #fff5f5; }
+        .log-time { color: #999; font-size: 11px; margin-bottom: 4px; }
+        .log-message { color: #333; line-height: 1.6; }
+        .log-exception { margin-top: 10px; padding: 10px; background: #fff; border: 1px solid #ffcdd2; border-radius: 3px; }
+        .exception-type { color: #d32f2f; font-weight: bold; margin-bottom: 5px; }
+        .exception-message { color: #c62828; margin-bottom: 10px; white-space: pre-wrap; }
+        .exception-stack { color: #666; font-size: 11px; white-space: pre-wrap; max-height: 300px; overflow-y: auto; }
+        .no-logs { color: #999; font-style: italic; text-align: center; padding: 20px; }
+    
+    </style>
+</head>
+<body>
+    <div class='container'>
+        <div class='header'>
+            <h1>BrowseAndAddItemToCart</h1>
+            <div class='meta'>Started: 2025-10-24 14:39:33 | Ended: 2025-10-24 14:39:41</div>
+        </div>
+        <div class='summary'>
+            <div class='summary-item passed'>
+                <div class='label'>Passed</div>
+                <div class='value'>1</div>
+            </div>
+            <div class='summary-item failed'>
+                <div class='label'>Failed</div>
+                <div class='value'>0</div>
+            </div>
+            <div class='summary-item duration'>
+                <div class='label'>Duration</div>
+                <div class='value'>8.10s</div>
+            </div>
+        </div>
+        <div class='steps'>
+            <div class='step'>
+                <div class='step-header passed' onclick='toggleStep(0)'>
+                    <div class='step-info'>
+                        <div class='step-name'>1. Browse to &apos;Soft Stretch Jeans&apos; product</div>
+                        <div class='step-meta'>4 action(s) | Completed at 14:39:36.025</div>
+                    </div>
+                    <div class='step-status'>
+                        <span class='status-badge passed'>Passed</span>
+                        <span class='toggle-icon' id='icon-0'>▼</span>
+                    </div>
+                </div>
+                <div class='step-content' id='content-0'>
+                    <div class='step-logs'>
+                        <div class='log-entry'>
+                            <div class='log-time'>14:39:36.027</div>
+                            <div class='log-message'>Finding element: By.XPath: //a[@href=&apos;#Men&apos;]</div>
+                        </div>
+                        <div class='log-entry'>
+                            <div class='log-time'>14:39:36.038</div>
+                            <div class='log-message'>Element found: By.XPath: //a[@href=&apos;#Men&apos;]</div>
+                        </div>
+                        <div class='log-entry'>
+                            <div class='log-time'>14:39:36.067</div>
+                            <div class='log-message'>Finding elements: By.XPath: //a[contains(@href, &apos;delete_account&apos;)]</div>
+                        </div>
+                        <div class='log-entry'>
+                            <div class='log-time'>14:39:41.123</div>
+                            <div class='log-message'>Found 0 element(s): By.XPath: //a[contains(@href, &apos;delete_account&apos;)]</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+
+        function toggleStep(index) {
+            const content = document.getElementById('content-' + index);
+            const icon = document.getElementById('icon-' + index);
+            content.classList.toggle('expanded');
+            icon.classList.toggle('expanded');
+        }
+    
+    </script>
+</body>
+</html>

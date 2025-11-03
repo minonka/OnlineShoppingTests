@@ -7,12 +7,18 @@ using WebDriverManager;
 using WebDriverManager.DriverConfigs.Impl;
 using OnlineShoppingTests.Pages;
 using OnlineShoppingTests.Utils;
+using OnlineShoppingTests.TestData.Models;
+using OnlineShoppingTests.TestReporting;
 
 namespace OnlineShoppingTests.Tests
 {
     public class BaseTest
     {
-        protected IWebDriver driver;
+        private IWebDriver actualDriver;
+        protected LoggingWebDriver driver;
+        protected HtmlTestReport report = null!;
+        public string TestName { get; private set; } = string.Empty;
+
 
         // Shared Page Object instances
         protected HomePage homePage;
@@ -21,17 +27,29 @@ namespace OnlineShoppingTests.Tests
         protected RegistrationPage registrationPage;
         protected CheckoutPage checkoutPage;
         protected PaymentPage paymentPage;
+
+        protected static readonly IReadOnlyDictionary<string, User> Users = UserDataManager.GetAllUsers();
         
         [SetUp]
         public void SetUp()
         {
             var browser = ConfigManager.Browser;
-            var baseUrl = ConfigManager.BaseUrl;
+            var baseUrl = ConfigManager.GetUiBaseUrl();
 
-            driver = StartBrowser(browser);
-            driver.Manage().Window.Maximize();
-            driver.Manage().Cookies.DeleteAllCookies();
-            driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(ConfigManager.Timeout);
+            actualDriver = StartBrowser(browser);
+            actualDriver.Manage().Window.Maximize();
+            actualDriver.Manage().Cookies.DeleteAllCookies();
+            actualDriver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(ConfigManager.Timeout);
+            HandleGdprConsent();
+
+            // Initialize logging
+            TestName = TestContext.CurrentContext.Test.Name;
+            report = new HtmlTestReport(TestName);
+
+            // Wrap driver with logging capability
+            driver = new LoggingWebDriver(actualDriver, report);
+
+            // Now use the wrapped driver
             driver.Navigate().GoToUrl(baseUrl);
             HandleGdprConsent();
 
@@ -101,9 +119,13 @@ namespace OnlineShoppingTests.Tests
             // Delete user if logged in
             DeleteUser();
 
-            // Always dispose driver
+            GenerateReportFile();
+
+            // Always dispose driver(s)
             driver.Quit();
             driver.Dispose();
+            actualDriver.Quit();
+            actualDriver.Dispose();
         }
 
         private void TakeScreenshot(string testName)
@@ -144,6 +166,22 @@ namespace OnlineShoppingTests.Tests
             {
                 driver.FindElement(deleteButtonLocator).Click();
             }
+        }
+
+        private void GenerateReportFile()
+        {
+            // Ensure absolute folder path
+            var projectDir = Directory.GetParent(AppContext.BaseDirectory)
+                                ?.Parent?.Parent?.Parent?.FullName;
+            var dir = Path.Combine(projectDir!, ConfigManager.TestReportsFolder);
+            Directory.CreateDirectory(dir); // creates folder if it doesn't exist
+            
+            string timestamp = DateTime.Now.ToString("yyyyMMdd_HHmmss");
+            string fileName = $"{TestName}_{timestamp}.html";
+            string filePath = Path.Combine(dir, fileName);
+            
+            report?.SaveReport(filePath);
+            TestContext.Out.WriteLine($"Test report saved to: {filePath}");
         }
     }
 }

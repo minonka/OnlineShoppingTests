@@ -102,10 +102,8 @@ namespace OnlineShoppingTests.Pages
         {
             var productLocator = By.XPath($"//p[text()='{item}']/..//..//..//div[@class='choose']//a");
             var product = WaitHelper.WaitForElementClickable(driver, productLocator) ?? throw new InvalidOperationException("Product not found on Home Page");
-            // string productName = product.GetAttribute("href") ?? throw new InvalidOperationException("Product href attribute is missing");
             ScrollIntoView(product);
             product.Click();
-            // return productName;
         }
 
         public string SelectFirstProduct()

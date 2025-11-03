@@ -85,7 +85,6 @@ On test failure, screenshots are automatically saved in `/Screenshots` and attac
 
 ## Future Enhancements
 
-* Add logging
 * Add data management
 * Integration into CI/CD (GitHub Actions, Azure Pipelines)
 

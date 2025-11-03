@@ -1,7 +1,7 @@
 {
-  "validUser": {
-    "Username": "testuser",
-    "Email": "testuser12@testing.com",
+  "validUser1": {
+    "Username": "testuser1",
+    "Email": "testuser1@testing.com",
     "Password": "c8T$866%PF%`",
     "FirstName": "John",
     "LastName": "Smith",
@@ -13,10 +13,30 @@
     "MobileNumber": "+1777666555",
     "Payment": {
       "CardName": "John Smith",
-      "CardNumber": "4111111111111111",
+      "CardNumber": "5111111111111111",
       "Cvc": "123",
       "ExpiryMonth": "12",
       "ExpiryYear": "2028"
+    }
+  },
+    "validUser2": {
+    "Username": "testuser2",
+    "Email": "testuser2@testing.com",
+    "Password": "hs^wU£40x1lM",
+    "FirstName": "Jane",
+    "LastName": "Smith",
+    "StreetAddress": "16 Baker Street",
+    "Country": "Canada",
+    "State": "Alberta",
+    "City": "Calgary",
+    "ZipCode": "11150",
+    "MobileNumber": "+1777666444",
+    "Payment": {
+      "CardName": "Jane Smith",
+      "CardNumber": "4111111111111111",
+      "Cvc": "456",
+      "ExpiryMonth": "10",
+      "ExpiryYear": "2030"
     }
   }
 }

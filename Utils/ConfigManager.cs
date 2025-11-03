@@ -23,10 +23,15 @@ namespace OnlineShoppingTests.Utils
             return value;
         }
 
-        public static string Browser => GetRequiredValue("browser");
-        public static string BaseUrl => GetRequiredValue("baseUrl");
-        public static int Timeout => int.TryParse(config["Timeout"], out var t) ? t : 10;
-        public static bool Headless => bool.TryParse(config["headless"], out var h) && h;
-        public static string ScreenshotsFolder => GetRequiredValue("ScreenshotsFolder");
+        // UI Settings
+        public static string Browser => GetRequiredValue("appSettings:browser");
+        public static string GetUiBaseUrl() => GetRequiredValue("appSettings:baseUrl");
+        public static int Timeout => int.TryParse(config["appSettings:timeout"], out var t) ? t : 10;
+        public static bool Headless => bool.TryParse(config["appSettings:headless"], out var h) && h;
+        public static string ScreenshotsFolder => GetRequiredValue("appSettings:screenshotsFolder");
+        public static string TestReportsFolder => GetRequiredValue("appSettings:testReportsFolder");
+
+        // API Settings
+        public static string GetApiBaseUrl() => GetRequiredValue("apiSettings:baseUrl");
     }
 }

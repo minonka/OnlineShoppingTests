@@ -1,6 +1,5 @@
 using OpenQA.Selenium;
 using OpenQA.Selenium.Support.UI;
-using SeleniumExtras.WaitHelpers;
 
 namespace OnlineShoppingTests.Utils
 {
@@ -9,13 +8,43 @@ namespace OnlineShoppingTests.Utils
         public static IWebElement WaitForElementVisible(IWebDriver driver, By locator, int timeoutInSeconds = 10)
         {
             var wait = new WebDriverWait(driver, TimeSpan.FromSeconds(timeoutInSeconds));
-            return wait.Until(ExpectedConditions.ElementIsVisible(locator));
+            return wait.Until(d =>
+            {
+                try
+                {
+                    var element = d.FindElement(locator);
+                    return (element.Displayed) ? element : null;
+                }
+                catch (NoSuchElementException)
+                {
+                    return null;
+                }
+                catch (StaleElementReferenceException)
+                {
+                    return null;
+                }
+            });
         }
 
         public static IWebElement WaitForElementClickable(IWebDriver driver, By locator, int timeoutInSeconds = 10)
         {
             var wait = new WebDriverWait(driver, TimeSpan.FromSeconds(timeoutInSeconds));
-            return wait.Until(ExpectedConditions.ElementToBeClickable(locator));
+            return wait.Until(d =>
+            {
+                try
+                {
+                    var element = d.FindElement(locator);
+                    return (element.Displayed && element.Enabled) ? element : null;
+                }
+                catch (NoSuchElementException)
+                {
+                    return null;
+                }
+                catch (StaleElementReferenceException)
+                {
+                    return null;
+                }
+            });
         }
     }
 }

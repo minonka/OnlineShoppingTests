@@ -36,9 +36,13 @@ namespace OnlineShoppingTests.Tests
         [Test]
         public void BrowseAndAddItemToCart()
         {
+            report.StartStep("1. Browse to 'Soft Stretch Jeans' product");
             BrowseAndAdd(MenCategory, JeansSubcategory, SoftStretchJeans, 1);
+
+            report.StartStep("2. Navigate to cart");
             productPage.ViewCart();
 
+            report.StartStep("3. Verify Product in cart");
             Assert.That(cartPage.IsProductInCart(SoftStretchJeans),
                 $"Expected '{SoftStretchJeans}' to be in the cart.");
         }
@@ -86,8 +90,8 @@ namespace OnlineShoppingTests.Tests
         [Test]
         public void CheckoutWithNewUserRegistration()
         {
-            var user = UserDataManager.GetUser("validUser");
-
+            var user = UserDataManager.GetUser("validUser1");
+            
             // Add an item
             BrowseAndAdd(MenCategory, JeansSubcategory, SoftStretchJeans, 1);
             productPage.ViewCart();
@@ -108,7 +112,7 @@ namespace OnlineShoppingTests.Tests
         [Test]
         public void SuccessfulPayment()
         {
-            var user = UserDataManager.GetUser("validUser");
+            var user = UserDataManager.GetUser("validUser2");
 
             // Add first item twice
             BrowseAndAdd(MenCategory, JeansSubcategory, SoftStretchJeans, 2);

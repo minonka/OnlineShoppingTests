@@ -30,10 +30,10 @@ namespace OnlineShoppingTests.Pages
                 // Find the link inside the description cell
                 var productDescription = productRow.FindElement(By.XPath(".//td[@class='cart_description']//a"));
 
-                // Get the href value
+                // Get the text value
                 string text = productDescription.Text.Trim().ToLowerInvariant();
 
-                // Check if href contains the product name
+                // Check if text value contains the product name
                 if (!string.IsNullOrEmpty(text) && text.Equals(normalizedProductName, StringComparison.OrdinalIgnoreCase))
                     return true;
             }
